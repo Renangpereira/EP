@@ -1,0 +1,34 @@
+\ "Epest principal da Pagina.
+.TH epest 1 "0.1.7" "Comandos do usuário"
+.SH NOME
+epest \ - sistema de arquivos de álbum PNG de esteganografia LSB criptografado por chave no espaço do usuário
+.SH SINOPSE
+epest [OPÇÕES] ... [CAMINHO / PARA / ROOTIMAGE.PNG]
+.SH DESCRIÇÃO
+Crie, acesse e modifique um sistema de arquivos de esteganografia LSB no espaço do usuário usando um diretório de imagens PNG. O estado do sistema de arquivos só é preservado após o fechamento seguro do sistema de arquivos por meio de desmontar ou Ctrl + C. Um sistema de arquivos só pode usar imagens com as mesmas dimensões da imagem raiz fornecida.
+.PP
+Um sistema de arquivos requer um nome, chave, imagem raiz e imagens de armazenamento. Para acessar um sistema de arquivos, a chave correta, o nome do sistema de arquivos e a imagem raiz devem ser fornecidos. Todos os dados são XOR com hash SHA512 da chave conforme são lidos e gravados nas imagens. A imagem raiz armazena o nome do sistema de arquivos, espaço total e consumido, imagem e contagem de arquivos, nomes de arquivos de imagens e metadados de arquivos. Todas as imagens adicionadas ao sistema de arquivos durante a formatação ou expansão são encontradas no mesmo diretório da imagem raiz.
+.PP
+A formatação de um sistema de arquivos apaga cada bit menos significativo disponível nas imagens fornecidas, da mesma forma, a remoção de um arquivo apaga sua marca e muda o sistema de arquivos se houver um buraco. Todos os arquivos no sistema de arquivos têm permissões de 644 e não podem ser editados, mas podem ser lidos, renomeados, excluídos e copiados.
+.TP
+.B -format
+crie um novo sistema de arquivos usando imagens válidas no diretório da imagem raiz fornecida e monte-o.
+.TP
+.B -expand
+expandir e montar um sistema de arquivos existente. O diretório que contém a imagem raiz é verificado em busca de imagens PNG válidas adicionais ainda não incluídas no sistema de arquivos.
+.TP
+.B -mount
+montar um sistema de arquivos existente
+.TP
+.B -debug
+habilitar saída de depuração bit a bit. O bloqueio de E / S desta saída fará com que o sistema de arquivos opere muito lentamente.
+.TP
+.B -help
+sintaxe de comando echo e programa de saída.
+.SH EXEMPLOS
+.PP
+epest -format images / vacation / image.png
+.PP
+epest -debug -mount images / vacation / image.png
+.SH VER TAMBÉM
+fuse (8)
